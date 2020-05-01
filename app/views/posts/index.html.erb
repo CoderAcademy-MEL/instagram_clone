@@ -1,3 +1,12 @@
+<div>
+<h1>Search</h1>
+  <%= form_with url: posts_path, local: true, method: :get  do |f| %>
+    <%= f.label :user_search %>
+    <%= f.text_field :user_search %>
+    <%= f.submit 'Search' %>
+  <% end %>
+</div>
+
 <div class="card-container">
   <% @posts.each do |post| %>
     <%= render 'card', post: post %>

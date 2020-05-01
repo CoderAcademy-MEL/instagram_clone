@@ -3,7 +3,17 @@ class PostsController < ApplicationController
   before_action :find_post ,only: [:edit, :update, :destroy] 
   
   def index
-    @posts = Post.all
+    if params[:user_search].blank?
+      @posts = Post.with_attached_image.includes(:user).order(updated_at: :desc)
+    else
+      @posts = User.where(["username = ?", params[:user_search]]).first.posts.with_attached_image
+    end
+  end
+
+  def search
+    @posts = nil
+    @posts = User.where(["username = ?", params[:user_search]]).first.posts.with_attached_image
+    render 'index'
   end
 
   def new
@@ -26,7 +36,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post
+      redirect_to posts_path
     else
       render :edit
     end

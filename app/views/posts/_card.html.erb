@@ -1,5 +1,5 @@
 <div class="card">
   <%= image_tag image_for(post), style: 'width:100%;' %>
-  <h5><%= post.author %></h5>
+  <h5><%= post.author %> - <%= post.created_at %></h5>
   <p><%= post.description %></p>
 </div>
